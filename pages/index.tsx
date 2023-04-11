@@ -1,4 +1,4 @@
-import { DBVideoChunk, PGChunk, VideoChunk } from "@/types";
+import { DBVideoChunk, VideoChunk } from "@/types";
 import { IconArrowRight, IconExternalLink, IconSearch } from "@tabler/icons-react";
 import { KeyboardEvent, useEffect, useRef, useState } from "react";
 
@@ -90,7 +90,7 @@ export default function Home() {
       throw new Error(searchResponse.statusText);
     }
 
-    const results: PGChunk[] = await searchResponse.json();
+    const results: DBVideoChunk[] = await searchResponse.json();
 
     setChunks(results);
 

@@ -1,4 +1,4 @@
-import { ChannelObject, PGEssay, PGJSON, VideoObjectWithCaptions } from "@/types";
+import { ChannelObject, VideoObjectWithCaptions } from "@/types";
 import { Configuration, OpenAIApi } from "openai";
 
 import { createClient } from "@supabase/supabase-js";
