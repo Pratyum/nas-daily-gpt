@@ -1,17 +1,18 @@
+import { DBVideoChunk, PGChunk, VideoChunk } from "@/types";
+import { IconArrowRight, IconExternalLink, IconSearch } from "@tabler/icons-react";
+import { KeyboardEvent, useEffect, useRef, useState } from "react";
+
 import { Answer } from "@/components/Answer/Answer";
 import { Footer } from "@/components/Footer";
-import { Navbar } from "@/components/Navbar";
-import { PGChunk } from "@/types";
-import { IconArrowRight, IconExternalLink, IconSearch } from "@tabler/icons-react";
-import endent from "endent";
 import Head from "next/head";
-import { KeyboardEvent, useEffect, useRef, useState } from "react";
+import { Navbar } from "@/components/Navbar";
+import endent from "endent";
 
 export default function Home() {
   const inputRef = useRef<HTMLInputElement>(null);
 
   const [query, setQuery] = useState<string>("");
-  const [chunks, setChunks] = useState<PGChunk[]>([]);
+  const [chunks, setChunks] = useState<DBVideoChunk[]>([]);
   const [answer, setAnswer] = useState<string>("");
   const [loading, setLoading] = useState<boolean>(false);
 
@@ -49,7 +50,7 @@ export default function Home() {
       throw new Error(searchResponse.statusText);
     }
 
-    const results: PGChunk[] = await searchResponse.json();
+    const results: DBVideoChunk[] = await searchResponse.json();
 
     setChunks(results);
 
@@ -199,10 +200,10 @@ export default function Home() {
   return (
     <>
       <Head>
-        <title>Paul Graham GPT</title>
+        <title>Nas Daily GPT</title>
         <meta
           name="description"
-          content={`AI-powered search and chat for Paul Graham's essays.`}
+          content={`AI-powered search and chat for Nas Daily videos.`}
         />
         <meta
           name="viewport"
@@ -219,7 +220,7 @@ export default function Home() {
         <div className="flex-1 overflow-auto">
           <div className="mx-auto flex h-full w-full max-w-[750px] flex-col items-center px-3 pt-4 sm:pt-8">
             <button
-              className="mt-4 flex cursor-pointer items-center space-x-2 rounded-full border border-zinc-600 px-3 py-1 text-sm hover:opacity-50"
+              className="flex items-center px-3 py-1 mt-4 space-x-2 text-sm border rounded-full cursor-pointer border-zinc-600 hover:opacity-50"
               onClick={() => setShowSettings(!showSettings)}
             >
               {showSettings ? "Hide" : "Show"} Settings
@@ -268,16 +269,16 @@ export default function Home() {
                   />
                 </div>
 
-                <div className="mt-4 flex space-x-2 justify-center">
+                <div className="flex justify-center mt-4 space-x-2">
                   <div
-                    className="flex cursor-pointer items-center space-x-2 rounded-full bg-green-500 px-3 py-1 text-sm text-white hover:bg-green-600"
+                    className="flex items-center px-3 py-1 space-x-2 text-sm text-white bg-green-500 rounded-full cursor-pointer hover:bg-green-600"
                     onClick={handleSave}
                   >
                     Save
                   </div>
 
                   <div
-                    className="flex cursor-pointer items-center space-x-2 rounded-full bg-red-500 px-3 py-1 text-sm text-white hover:bg-red-600"
+                    className="flex items-center px-3 py-1 space-x-2 text-sm text-white bg-red-500 rounded-full cursor-pointer hover:bg-red-600"
                     onClick={handleClear}
                   >
                     Clear
@@ -288,11 +289,11 @@ export default function Home() {
 
             {apiKey.length === 51 ? (
               <div className="relative w-full mt-4">
-                <IconSearch className="absolute top-3 w-10 left-1 h-6 rounded-full opacity-50 sm:left-3 sm:top-4 sm:h-8" />
+                <IconSearch className="absolute w-10 h-6 rounded-full opacity-50 top-3 left-1 sm:left-3 sm:top-4 sm:h-8" />
 
                 <input
                   ref={inputRef}
-                  className="h-12 w-full rounded-full border border-zinc-600 pr-12 pl-11 focus:border-zinc-800 focus:outline-none focus:ring-1 focus:ring-zinc-800 sm:h-16 sm:py-2 sm:pr-16 sm:pl-16 sm:text-lg"
+                  className="w-full h-12 pr-12 border rounded-full border-zinc-600 pl-11 focus:border-zinc-800 focus:outline-none focus:ring-1 focus:ring-zinc-800 sm:h-16 sm:py-2 sm:pr-16 sm:pl-16 sm:text-lg"
                   type="text"
                   placeholder="How do I start a startup?"
                   value={query}
@@ -308,7 +309,7 @@ export default function Home() {
                 </button>
               </div>
             ) : (
-              <div className="text-center font-bold text-3xl mt-7">
+              <div className="text-3xl font-bold text-center mt-7">
                 Please enter your
                 <a
                   className="mx-2 underline hover:opacity-50"
@@ -321,48 +322,48 @@ export default function Home() {
             )}
 
             {loading ? (
-              <div className="mt-6 w-full">
+              <div className="w-full mt-6">
                 {mode === "chat" && (
                   <>
-                    <div className="font-bold text-2xl">Answer</div>
-                    <div className="animate-pulse mt-2">
+                    <div className="text-2xl font-bold">Answer</div>
+                    <div className="mt-2 animate-pulse">
                       <div className="h-4 bg-gray-300 rounded"></div>
-                      <div className="h-4 bg-gray-300 rounded mt-2"></div>
-                      <div className="h-4 bg-gray-300 rounded mt-2"></div>
-                      <div className="h-4 bg-gray-300 rounded mt-2"></div>
-                      <div className="h-4 bg-gray-300 rounded mt-2"></div>
+                      <div className="h-4 mt-2 bg-gray-300 rounded"></div>
+                      <div className="h-4 mt-2 bg-gray-300 rounded"></div>
+                      <div className="h-4 mt-2 bg-gray-300 rounded"></div>
+                      <div className="h-4 mt-2 bg-gray-300 rounded"></div>
                     </div>
                   </>
                 )}
 
-                <div className="font-bold text-2xl mt-6">Passages</div>
-                <div className="animate-pulse mt-2">
+                <div className="mt-6 text-2xl font-bold">Passages</div>
+                <div className="mt-2 animate-pulse">
                   <div className="h-4 bg-gray-300 rounded"></div>
-                  <div className="h-4 bg-gray-300 rounded mt-2"></div>
-                  <div className="h-4 bg-gray-300 rounded mt-2"></div>
-                  <div className="h-4 bg-gray-300 rounded mt-2"></div>
-                  <div className="h-4 bg-gray-300 rounded mt-2"></div>
+                  <div className="h-4 mt-2 bg-gray-300 rounded"></div>
+                  <div className="h-4 mt-2 bg-gray-300 rounded"></div>
+                  <div className="h-4 mt-2 bg-gray-300 rounded"></div>
+                  <div className="h-4 mt-2 bg-gray-300 rounded"></div>
                 </div>
               </div>
             ) : answer ? (
               <div className="mt-6">
-                <div className="font-bold text-2xl mb-2">Answer</div>
+                <div className="mb-2 text-2xl font-bold">Answer</div>
                 <Answer text={answer} />
 
                 <div className="mt-6 mb-16">
-                  <div className="font-bold text-2xl">Passages</div>
+                  <div className="text-2xl font-bold">Passages</div>
 
                   {chunks.map((chunk, index) => (
                     <div key={index}>
-                      <div className="mt-4 border border-zinc-600 rounded-lg p-4">
+                      <div className="p-4 mt-4 border rounded-lg border-zinc-600">
                         <div className="flex justify-between">
                           <div>
-                            <div className="font-bold text-xl">{chunk.essay_title}</div>
-                            <div className="mt-1 font-bold text-sm">{chunk.essay_date}</div>
+                            <div className="text-xl font-bold">{chunk.title}</div>
+                            <div className="mt-1 text-sm font-bold">{chunk.publishtime}</div>
                           </div>
                           <a
-                            className="hover:opacity-50 ml-2"
-                            href={chunk.essay_url}
+                            className="ml-2 hover:opacity-50"
+                            href={`https://www.youtube.com/watch?v=${chunk.video_id}`}
                             target="_blank"
                             rel="noreferrer"
                           >
@@ -376,19 +377,19 @@ export default function Home() {
                 </div>
               </div>
             ) : chunks.length > 0 ? (
-              <div className="mt-6 pb-16">
-                <div className="font-bold text-2xl">Passages</div>
+              <div className="pb-16 mt-6">
+                <div className="text-2xl font-bold">Passages</div>
                 {chunks.map((chunk, index) => (
                   <div key={index}>
-                    <div className="mt-4 border border-zinc-600 rounded-lg p-4">
+                    <div className="p-4 mt-4 border rounded-lg border-zinc-600">
                       <div className="flex justify-between">
                         <div>
-                          <div className="font-bold text-xl">{chunk.essay_title}</div>
-                          <div className="mt-1 font-bold text-sm">{chunk.essay_date}</div>
+                          <div className="text-xl font-bold">{chunk.title}</div>
+                          <div className="mt-1 text-sm font-bold">{chunk.publishtime}</div>
                         </div>
                         <a
-                          className="hover:opacity-50 ml-2"
-                          href={chunk.essay_url}
+                          className="ml-2 hover:opacity-50"
+                          href={`https://www.youtube.com/watch?v=${chunk.video_id}`}
                           target="_blank"
                           rel="noreferrer"
                         >
@@ -401,7 +402,7 @@ export default function Home() {
                 ))}
               </div>
             ) : (
-              <div className="mt-6 text-center text-lg">{`AI-powered search & chat for Paul Graham's essays.`}</div>
+              <div className="mt-6 text-lg text-center">{`AI-powered search & chat for Nas Daily Videos`}</div>
             )}
           </div>
         </div>

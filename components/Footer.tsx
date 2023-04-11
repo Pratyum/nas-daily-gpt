@@ -1,4 +1,5 @@
 import { IconBrandGithub, IconBrandTwitter } from "@tabler/icons-react";
+
 import { FC } from "react";
 
 export const Footer: FC = () => {
@@ -6,41 +7,41 @@ export const Footer: FC = () => {
     <div className="flex h-[50px] border-t border-gray-300 py-2 px-8 items-center sm:justify-between justify-center">
       <div className="hidden sm:flex"></div>
 
-      <div className="hidden sm:flex italic text-sm">
+      <div className="hidden text-sm italic sm:flex">
         Created by
         <a
-          className="hover:opacity-50 mx-1"
+          className="mx-1 hover:opacity-50"
           href="https://twitter.com/mckaywrigley"
           target="_blank"
           rel="noreferrer"
         >
-          Mckay Wrigley
+          Pratyum Jagannath
         </a>
-        based on the essays of
+        based on the videos of
         <a
-          className="hover:opacity-50 ml-1"
+          className="ml-1 hover:opacity-50"
           href="https://twitter.com/paulg"
           target="_blank"
           rel="noreferrer"
         >
-          Paul Graham
+          Nas Daily
         </a>
         .
       </div>
 
       <div className="flex space-x-4">
-        <a
+        {/* <a
           className="flex items-center hover:opacity-50"
           href="https://twitter.com/mckaywrigley"
           target="_blank"
           rel="noreferrer"
         >
           <IconBrandTwitter size={24} />
-        </a>
+        </a> */}
 
         <a
           className="flex items-center hover:opacity-50"
-          href="https://github.com/mckaywrigley/paul-graham-gpt"
+          href="https://github.com/Pratyum/nas-daily-gpt"
           target="_blank"
           rel="noreferrer"
         >
